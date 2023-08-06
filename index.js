@@ -1,7 +1,14 @@
 const inquirer = require("inquirer");
 const express = require("express");
-const mysql = require("mysql2");
-const table = require("console.table");
+const {
+    viewDepartments,
+    viewRoles,
+    viewEmployees,
+    addDepartment,
+    addRole,
+    addEmployee,
+    updateRole
+} = require("./db/db.js");
 
 const PORT = process.env.PORT || 3001;
 const app = express();
@@ -9,12 +16,54 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-const db = mysql.createConnection(
-    {
-        host: "localhost",
-        user: "root",
-        password: "root",
-        database: ""
-    },
-    console.log("Established connection to database.")
-)
+function main() {
+    inquirer
+        .prompt({
+            type: "list",
+            name: "res",
+            message: "What would you like to do?",
+            choices: [
+                "View all departments",
+                "View all roles",
+                "View all employees",
+                "Add a department",
+                "Add a role",
+                "Add an employee",
+                "Update an employee role",
+                "Exit"
+            ]
+        })
+        .then((answer) => {
+            switch (answer.res) {
+                case "View all departments":
+                    viewDepartments();
+                    break;
+                case "View all roles":
+                    viewRoles();
+                    break;
+                case "View all employees":
+                    viewEmployees();
+                    break;
+                case "Add a department":
+                    addDepartment();
+                    break;
+                case "Add a role":
+                    addRole();
+                    break;
+                case "Add an employee":
+                    addEmployee();
+                    break;
+                case "Update an employee role":
+                    updateRole();
+                    break;
+                case "Exit":
+                    process.exit();
+                default:
+                    console.log("Selection invalid");
+                    main();
+                    break;
+            }
+        })
+}
+
+main();
