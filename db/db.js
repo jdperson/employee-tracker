@@ -1,6 +1,5 @@
 const mysql = require("mysql2");
 const inquirer = require("inquirer");
-const table = require("console.table");
 
 const db = mysql.createConnection(
     {
@@ -244,6 +243,7 @@ function updateRole() {
 };
 
 module.exports = {
+    inquirer,
     viewDepartments,
     viewRoles,
     viewEmployees,

@@ -1,6 +1,5 @@
-const inquirer = require("inquirer");
-const express = require("express");
 const {
+    inquirer,
     viewDepartments,
     viewRoles,
     viewEmployees,
@@ -9,12 +8,6 @@ const {
     addEmployee,
     updateRole
 } = require("./db/db.js");
-
-const PORT = process.env.PORT || 3001;
-const app = express();
-
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
 
 function main() {
     inquirer
