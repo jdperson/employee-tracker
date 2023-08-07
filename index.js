@@ -1,5 +1,5 @@
+const inquirer = require("inquirer");
 const {
-    inquirer,
     viewDepartments,
     viewRoles,
     viewEmployees,
@@ -30,24 +30,31 @@ function main() {
             switch (answer.res) {
                 case "View all departments":
                     viewDepartments();
+                    main();
                     break;
                 case "View all roles":
                     viewRoles();
+                    main();
                     break;
                 case "View all employees":
                     viewEmployees();
+                    main();
                     break;
                 case "Add a department":
                     addDepartment();
+                    main();
                     break;
                 case "Add a role":
                     addRole();
+                    main();
                     break;
                 case "Add an employee":
                     addEmployee();
+                    main();
                     break;
                 case "Update an employee role":
                     updateRole();
+                    main();
                     break;
                 case "Exit":
                     process.exit();
@@ -60,3 +67,5 @@ function main() {
 }
 
 main();
+
+module.exports = {main};

@@ -9,7 +9,7 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "inquirer": "^9.2.10",
-    "mysql2": "^3.6.0"
+    "inquirer": "^8.2.4",
+    "mysql2": "^2.2.5"
   }
 }

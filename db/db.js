@@ -21,7 +21,6 @@ function viewDepartments() {
         if (err) throw err;
 
         console.table(departments);
-        main();
     });
 };
 
@@ -40,7 +39,6 @@ function viewRoles() {
         if (err) throw err;
 
         console.table(roles);
-        main();
     });
 };
 
@@ -67,7 +65,6 @@ function viewEmployees() {
         if (err) throw err;
 
         console.table(employees);
-        main();
     });
 };
 
@@ -91,7 +88,6 @@ function addDepartment() {
                 if (err) throw err;
 
                 console.log(`Added ${departmentName} to the database`);
-                main();
             })
         })
 };
@@ -142,7 +138,6 @@ function addRole() {
                     (err, result) => {
                         if (err) throw err;
                         console.log(`Added ${roleName} to database`);
-                        main();
                     }
                 );
             });
@@ -213,7 +208,6 @@ function addEmployee() {
                         (err, result) => {
                             if (err) throw err;
                             console.log(`Added ${firstName} ${lastName} to database`);
-                            main();
                         } 
                     )
                 })
@@ -259,8 +253,7 @@ function updateRole() {
                     db.query(query, [roleID, employeeID],
                         (err, result) => {
                             if (err) throw err;
-                            console.log(`Updated ${employeeName}'s role`)
-                            main();
+                            console.log(`Updated ${employeeName}'s role`);
                         }
                     );
                 });
@@ -269,7 +262,6 @@ function updateRole() {
 };
 
 module.exports = {
-    inquirer,
     viewDepartments,
     viewRoles,
     viewEmployees,
