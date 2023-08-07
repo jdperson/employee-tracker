@@ -1,6 +1,8 @@
 const mysql = require("mysql2");
 const inquirer = require("inquirer");
 
+// Create connection with database
+//! Update user and password to your mySQL credentials
 const db = mysql.createConnection(
     {
         host: "localhost",
@@ -10,11 +12,13 @@ const db = mysql.createConnection(
     },
 );
 
+// Connect to the database
 db.connect((err) => {
     if (err) throw err;
     console.log("Connection to database established");
 })
 
+// Displays a table with all departments to the console
 function viewDepartments() {
     const query = "SELECT * FROM departments";
     db.query(query, (err, departments) => {
@@ -25,6 +29,7 @@ function viewDepartments() {
     });
 };
 
+// Gathers relevant data for each role, joins and displays table to console
 function viewRoles() {
     const query = `
         SELECT
@@ -44,6 +49,8 @@ function viewRoles() {
     });
 };
 
+// Similar to viewRoles(), but applies conditional SQL logic to display
+// manager name as "null" instead of ""
 function viewEmployees() {
     const query = `
         SELECT
@@ -96,6 +103,7 @@ function addDepartment() {
 };
 
 function addRole() {
+    // Retrieve departments from database for choice list later
     db.query("SELECT * FROM departments", (err, departments) => {
         if (err) throw err;
         
@@ -125,6 +133,7 @@ function addRole() {
                     type: "list",
                     name: "departmentName",
                     message: "Which department does the role belong to?",
+                    // Lists each department as a choice
                     choices: departments.map((dept) => dept.name)
                 }
             ])
@@ -133,9 +142,11 @@ function addRole() {
                 const salary = parseInt(answers.salary);
                 const departmentName = answers.departmentName;
 
+                // Uses chosen dept name to find dept id in database
                 const department = departments.find((dept) => dept.name === departmentName);
                 const departmentID  = department.id;
 
+                // Uses found id to assign foreign key
                 const query = "INSERT INTO roles (title, salary, department_id) VALUES (?, ?, ?)";
                 db.query(query, [roleName, salary, departmentID],
                     (err, result) => {
@@ -148,6 +159,8 @@ function addRole() {
 };
 
 function addEmployee() {
+    // similar to addDepartment(), but spreads employee to incorporate
+    // a no manager ("null") option
     db.query("SELECT * FROM roles", (err, roles) => {
         if (err) throw err;
 
@@ -219,6 +232,8 @@ function addEmployee() {
 };
 
 function updateRole() {
+    // similar to addEmp() but uses UPDATE rather than INSERT
+    // inside db query
     db.query("SELECT * FROM employees", (err, employees) => {
         if (err) throw err;
 
@@ -264,6 +279,7 @@ function updateRole() {
     });
 };
 
+// Export each function for use in index.js
 module.exports = {
     viewDepartments,
     viewRoles,
