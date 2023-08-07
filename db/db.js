@@ -53,7 +53,10 @@ function viewEmployees() {
             roles.title AS "title",
             departments.name AS "department",
             roles.salary AS "salary",
-            CONCAT(managers.first_name, " ", managers.last_name) AS "manager"
+            CASE
+                WHEN managers.id IS NULL THEN "null"
+                ELSE CONCAT(managers.first_name, " ", managers.last_name)
+            END AS "manager"
         FROM employees AS emp
         INNER JOIN roles ON emp.role_id = roles.id
         INNER JOIN departments ON roles.department_id = departments.id
@@ -134,7 +137,7 @@ function addRole() {
                 const department = departments.find((dept) => dept.name === departmentName);
                 const departmentID  = department.id;
 
-                const query = "INSERT INTO roles (title, salary,. department_id) VALUES (?, ?, ?)";
+                const query = "INSERT INTO roles (title, salary, department_id) VALUES (?, ?, ?)";
                 db.query(query, [roleName, salary, departmentID],
                     (err, result) => {
                         if (err) throw err;
