@@ -20,6 +20,7 @@ function viewDepartments() {
     db.query(query, (err, departments) => {
         if (err) throw err;
 
+        console.log("\n");
         console.table(departments);
     });
 };
@@ -38,6 +39,7 @@ function viewRoles() {
     db.query(query, (err, roles) => {
         if (err) throw err;
 
+        console.log("\n");
         console.table(roles);
     });
 };
@@ -64,6 +66,7 @@ function viewEmployees() {
     db.query(query, (err, employees) => {
         if (err) throw err;
 
+        console.log("\n");
         console.table(employees);
     });
 };
