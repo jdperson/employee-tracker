@@ -6,7 +6,7 @@ const db = mysql.createConnection(
         host: "localhost",
         user: "root",
         password: "root",
-        database: ""
+        database: "employees_db"
     },
 );
 
@@ -191,7 +191,7 @@ function addEmployee() {
                 .then((answers) => {
                     const firstName = answers.firstName;
                     const lastName = answers.lastName;
-                    const roleName = answers.roleName;
+                    const roleName = answers.role;
                     const managerName = answers.manager;
 
                     const role = roles.find((role) => role.title === roleName);
